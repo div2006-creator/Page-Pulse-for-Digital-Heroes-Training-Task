@@ -118,13 +118,13 @@ export default function Home() {
             </button>
 
             <a
-              href="https://github.com"
+              href="https://github.com/div2006-creator/Page-Pulse-for-Digital-Heroes-Training-Task"
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-1.5 rounded-lg bg-[#141724] hover:bg-[#191d2d] text-slate-300 border border-[#1e2336] transition-colors flex items-center gap-1.5"
             >
               <Github className="w-3.5 h-3.5 text-slate-400" />
-              <span className="hidden sm:inline">GitHub</span>
+              <span className="hidden sm:inline">GitHub Repo</span>
             </a>
           </div>
         </div>
