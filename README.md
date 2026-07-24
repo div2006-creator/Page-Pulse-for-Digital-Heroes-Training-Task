@@ -223,20 +223,12 @@ curl -X POST http://localhost:3000/api/audit \
 
 ---
 
-## # Self Critique
+## Self Critique
 
 > *"If you had another day, what would you improve?"*
 
-If I had an additional day on this project, I would focus on three key architectural and operational enhancements:
+If I had another day, I would focus on three improvements:
 
-1. **Hybrid Parsing Pipeline (Static + Dynamic Execution)**:
-   - *Current Limitation*: Cheerio parses the raw initial HTTP HTML response. SPAs that render content exclusively via client-side JavaScript (e.g., Client-Side React without SSR) appear to have lower word counts or missing `<h1>` tags.
-   - *Improvement*: Implement a hybrid fallback mechanism. If Cheerio detects minimal body text (`wordCount < 20`) or missing elements, fall back to a lightweight Playwright worker to execute client JS before parsing.
-
-2. **Asynchronous Audit Queue & Rate Limiting**:
-   - *Current Limitation*: Synchronous fetch during API request handling exposes the endpoint to slow target servers and potential denial-of-wallet / abuse.
-   - *Improvement*: Introduce Redis/Upstash rate limiting per IP and integrate a background task queue (BullMQ or QStash). For larger multi-page audits, return an audit `jobId` immediately and stream audit progress via Server-Sent Events (SSE).
-
-3. **Multi-Page Site Crawling & Broken Link Checker**:
-   - *Current Limitation*: The auditor evaluates a single isolated URL per request.
-   - *Improvement*: Extend the engine to recursively discover internal links on the target domain, building an overall sitemap health report with a broken link scanner (inspecting `404` status on `<a href="...">` targets).
+1. **Support JavaScript-rendered websites** by integrating Playwright as a fallback for pages that rely on client-side rendering.
+2. **Add rate limiting and caching** to improve performance, reduce repeated requests, and protect the API from abuse.
+3. **Implement multi-page crawling** to audit entire websites, including internal links and broken link detection, instead of analyzing a single page.
