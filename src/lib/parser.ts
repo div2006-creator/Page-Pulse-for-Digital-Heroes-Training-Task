@@ -1,6 +1,31 @@
 import * as cheerio from 'cheerio';
 import { AuditReport, ImageAltDetails, ScoreBreakdown } from '@/types/audit';
 
+/**
+ * Parses raw HTML string and extracts key SEO, structural, accessibility, and quality metrics.
+ * 
+ * Features:
+ * - Page title & length audit
+ * - Meta description extraction (supports meta name description, og:description, twitter:description)
+ * - H1 heading tag count and list extraction
+ * - Image accessibility audit (total images, missing alt attribute count, relative URL resolution)
+ * - Visible body text approximate word count calculation
+ * - OpenGraph & canonical metadata inspection
+ * - Health score rating calculation (0-100 pts)
+ * 
+ * Edge Case Resilience:
+ * - Handles empty or malformed HTML strings without throwing exceptions.
+ * - Safely returns fallback nulls / empty arrays for missing tags.
+ * 
+ * @param html Raw HTML response body text
+ * @param targetUrl Original requested URL
+ * @param finalUrl Final redirected URL after fetch
+ * @param status HTTP response status code
+ * @param statusText HTTP response status text
+ * @param responseTime Network response time in milliseconds
+ * @param contentType Content-Type header string
+ * @returns AuditReport Structured audit report payload
+ */
 export function parseHtmlReport(
   html: string,
   targetUrl: string,
@@ -68,10 +93,9 @@ export function parseHtmlReport(
 
   const imagesMissingAltCount = missingAltImages.length;
 
-  // 5. Word Count
-  // Remove script, style, noscript, svg, code blocks for text counting
+  // 5. Word Count (Removes non-visible script, style, head, nav, footer tags)
   const cloneDoc = cheerio.load(html);
-  cloneDoc('script, style, noscript, svg, iframe, style, head, nav, footer').remove();
+  cloneDoc('script, style, noscript, svg, iframe, head, nav, footer').remove();
   const bodyText = cloneDoc('body').text() || cloneDoc.text();
   const words = bodyText
     .replace(/[\r\n\t]+/g, ' ')
@@ -80,7 +104,7 @@ export function parseHtmlReport(
     .filter(w => w.length > 0 && !/^[^a-zA-Z0-9]+$/.test(w));
   const approximateWordCount = words.length;
 
-  // 6. Extra Metadata (OG Tags & Canonical)
+  // 6. Open Graph & Canonical Tags
   const ogTitle = $('meta[property="og:title" i]').attr('content')?.trim() || null;
   const ogDescription = $('meta[property="og:description" i]').attr('content')?.trim() || null;
   const ogImageRaw = $('meta[property="og:image" i]').attr('content')?.trim() || null;
@@ -106,45 +130,30 @@ export function parseHtmlReport(
 
   const hasHttps = finalUrl.startsWith('https://');
 
-  // 7. Health Score Calculation
-  // Title (20 pts)
+  // 7. Health Score Calculation (Max 100 Points)
   let titleScore = 0;
   if (title) {
-    if (title.length >= 10 && title.length <= 70) {
-      titleScore = 20;
-    } else {
-      titleScore = 12; // non-ideal length
-    }
+    titleScore = (title.length >= 10 && title.length <= 70) ? 20 : 12;
   }
 
-  // Meta description (20 pts)
   let metaScore = 0;
   if (metaDescription) {
-    if (metaDescription.length >= 50 && metaDescription.length <= 160) {
-      metaScore = 20;
-    } else {
-      metaScore = 12;
-    }
+    metaScore = (metaDescription.length >= 50 && metaDescription.length <= 160) ? 20 : 12;
   }
 
-  // H1 Tag (20 pts)
   let h1Score = 0;
   if (h1Count === 1) {
     h1Score = 20;
   } else if (h1Count > 1) {
-    h1Score = 10; // multiple H1s
-  } else {
-    h1Score = 0;  // missing H1
+    h1Score = 10;
   }
 
-  // Image Alt Score (20 pts)
   let altScore = 20;
   if (totalImages > 0) {
     const altRatio = (totalImages - imagesMissingAltCount) / totalImages;
     altScore = Math.round(altRatio * 20);
   }
 
-  // HTTPS Score (20 pts)
   const httpsScore = hasHttps ? 20 : 0;
 
   const scoreBreakdown: ScoreBreakdown = {
