@@ -219,7 +219,6 @@ curl -X POST http://localhost:3000/api/audit \
 ## # Live Demo
 
 - **Live Deployed App**: [https://page-pulse-for-digital-heroes-train.vercel.app/](https://page-pulse-for-digital-heroes-train.vercel.app/)
-- **GitHub Repository**: [https://github.com/div2006-creator/Page-Pulse-for-Digital-Heroes-Training-Task](https://github.com/div2006-creator/Page-Pulse-for-Digital-Heroes-Training-Task)
 
 ---
 
