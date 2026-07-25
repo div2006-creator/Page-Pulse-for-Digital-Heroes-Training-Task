@@ -2,7 +2,7 @@
 
 > A web auditing tool that fetches any web page URL, evaluates key SEO, accessibility, performance, and structure metrics, and returns structured JSON reports paired with a modern UI.
 
-![Page Pulse Banner](https://img.shields.sh/badge/Page_Pulse-v1.0-indigo?style=for-the-badge)
+
 ![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=for-the-badge&logo=typescript)
 ![Vitest](https://img.shields.io/badge/Vitest-1.6-green?style=for-the-badge&logo=vitest)
