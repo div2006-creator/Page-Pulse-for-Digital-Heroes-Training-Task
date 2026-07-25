@@ -4,12 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { UrlForm } from '@/components/UrlForm';
 import { AuditDashboard } from '@/components/AuditDashboard';
 import { AuditReport, AuditErrorResponse } from '@/types/audit';
-import { 
-  Activity, 
-  AlertCircle, 
-  History, 
-  Github, 
-  Trash2, 
+import {
+  Activity,
+  AlertCircle,
+  History,
+  Trash2,
   FileCode2,
   ExternalLink,
   CheckCircle2
@@ -116,16 +115,6 @@ export default function Home() {
               <FileCode2 className="w-3.5 h-3.5 text-indigo-400" />
               <span className="hidden sm:inline">Deployment Guide</span>
             </button>
-
-            <a
-              href="https://github.com/div2006-creator/Page-Pulse-for-Digital-Heroes-Training-Task"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded-lg bg-[#141724] hover:bg-[#191d2d] text-slate-300 border border-[#1e2336] transition-colors flex items-center gap-1.5"
-            >
-              <Github className="w-3.5 h-3.5 text-slate-400" />
-              <span className="hidden sm:inline">GitHub Repo</span>
-            </a>
           </div>
         </div>
       </header>
@@ -270,9 +259,8 @@ export default function Home() {
                     <span className="text-xs font-medium text-slate-200 truncate max-w-[160px]">
                       {item.url.replace(/^https?:\/\//, '')}
                     </span>
-                    <span className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded ${
-                      item.healthScore >= 80 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'
-                    }`}>
+                    <span className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded ${item.healthScore >= 80 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'
+                      }`}>
                       {item.healthScore}/100
                     </span>
                   </div>
@@ -292,10 +280,10 @@ export default function Home() {
       <footer className="w-full border-t border-[#1e2336] bg-[#090a0f] py-5">
         <div className="max-w-5xl mx-auto px-4 text-center text-xs text-slate-400 space-y-1.5">
           <p className="font-medium text-slate-300">
-            <a 
-              href="https://digitalheroesco.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://digitalheroesco.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-indigo-400 hover:text-indigo-300 transition-colors underline underline-offset-4 decoration-indigo-500/40"
             >
               Built for Digital Heroes Training Task
