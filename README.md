@@ -219,7 +219,8 @@ curl -X POST http://localhost:3000/api/audit \
 ## # Live Demo
 
 - **Live Deployed App**: [https://page-pulse-for-digital-heroes-train.vercel.app/](https://page-pulse-for-digital-heroes-train.vercel.app/)
-Loom video: https://www.loom.com/share/d0802eff35744ac49cf523191e061f19
+
+**Loom video**: https://www.loom.com/share/d0802eff35744ac49cf523191e061f19
 
 ---
 
