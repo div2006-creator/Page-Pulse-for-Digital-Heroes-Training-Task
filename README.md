@@ -224,6 +224,11 @@ curl -X POST http://localhost:3000/api/audit \
 
 ---
 
+## AI usage Statement
+
+I used Antigravity AI as a development assistant to improve productivity during the project. It helped generate unit test templates, draft the README, add code documentation, and review code quality. I personally designed the application architecture, implemented the core functionality, verified and integrated the generated content, tested the application, and made the final technical decisions.
+
+
 ## Self Critique
 
 > *"If you had another day, what would you improve?"*
@@ -233,3 +238,4 @@ If I had another day, I would focus on three improvements:
 1. **Support JavaScript-rendered websites** by integrating Playwright as a fallback for pages that rely on client-side rendering.
 2. **Add rate limiting and caching** to improve performance, reduce repeated requests, and protect the API from abuse.
 3. **Implement multi-page crawling** to audit entire websites, including internal links and broken link detection, instead of analyzing a single page.
+
